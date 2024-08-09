@@ -8,14 +8,15 @@
 using namespace std;
 
 vector<string> words_in_line(vector<string> words, string line);
-void colored_cubes(vector<string> words, int* redSum, int* greenSum, int* blueSum);
+bool colored_cubes(vector<string> words, bool isValid);
 
 int main(void) 
 {
     ifstream fi;
-    fi.open("test-cases.txt");
+    fi.open("input-d2.txt");
 
-    int id = 0, redSum, greenSum, blueSum, result = 0;
+    int id = 0, result = 0;
+    bool isValid;
     string line;
     vector<string> words;
 
@@ -23,17 +24,13 @@ int main(void)
         words.clear();
 
         id += 1;
-        redSum = greenSum = blueSum = 0;
 
         words = words_in_line(words, line);
-        colored_cubes(words, &redSum, &greenSum, &blueSum);
+        isValid = colored_cubes(words, isValid);
         
-        if (redSum > 12 || greenSum > 13 || blueSum > 14) {
-            continue;
-        } else {
-            result += id;
-            cout << result << endl;
-        }
+        if (isValid) result += id;
+        else continue;
+        
     }
 
     cout << "Answer is: " << result << endl;
@@ -48,15 +45,29 @@ vector<string> words_in_line(vector<string> words, string line)
     return words;
 }
 
-void colored_cubes(vector<string> words, int* redSum, int* greenSum, int* blueSum) 
+bool colored_cubes(vector<string> words, bool isValid) 
 {
     for (auto it = words.begin(); it != words.end(); it++) {
         if (*(it) == "red" || *(it) == "red," || *(it) == "red;") {
-            *redSum += stoi(*(it-1));
+            if (stoi(*(it-1)) > 12) {
+                isValid = false;
+                break;
+            }
+            else isValid = true;
         } else if (*(it) == "green" || *(it) == "green," || *(it) == "green;") {
-            *greenSum += stoi(*(it-1));
+            if (stoi(*(it-1)) > 13) {
+                isValid = false;
+                break;
+            }
+            else isValid = true;
         } else if (*(it) == "blue" || *(it) == "blue," || *(it) == "blue;") {
-            *blueSum += stoi(*(it-1));
+            if (stoi(*(it-1)) > 14) {
+                isValid = false;
+                break;
+            }
+            else isValid = true;
         }
     }
+
+    return isValid;
 }
