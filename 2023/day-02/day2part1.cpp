@@ -13,14 +13,13 @@ void colored_cubes(vector<string> words, int* redSum, int* greenSum, int* blueSu
 int main(void) 
 {
     ifstream fi;
-    fi.open("input-d2.txt");
+    fi.open("test-cases.txt");
 
     int id = 0, redSum, greenSum, blueSum, result = 0;
     string line;
     vector<string> words;
 
-    while (fi) {
-        getline(fi, line);
+    while (getline(fi, line)) {
         words.clear();
 
         id += 1;
