@@ -18,7 +18,8 @@ In this example, the calibration values of these four lines are 12, 38, 15, and 
 
 using namespace std;
 
-int main(void) {
+int main(void) 
+{
     ifstream fi;
     string line;
 
@@ -30,9 +31,7 @@ int main(void) {
 
     int sum = 0;
 
-    while (fi) {
-        getline(fi, line);
-        if (line=="-1") break;
+    while (getline(fi, line)) {
         
         string digits, doubledigits;
         
